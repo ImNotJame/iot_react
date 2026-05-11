@@ -42,9 +42,6 @@ function LoginPage() {
       <section className="auth-card">
         <p className="eyebrow">Secure Access</p>
         <h1>Log in to the IoT dashboard</h1>
-        <p className="auth-copy">
-          Use your backend account to control device status and manage items.
-        </p>
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <label className="field">
