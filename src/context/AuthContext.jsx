@@ -264,7 +264,10 @@ export function AuthProvider({ children }) {
     try {
       await fetchWithTimeout(`${API_BASE_URL}/auth/logout`, { 
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          ...(session?.token && { Authorization: `Bearer ${session.token}` }),
+        },
         body: JSON.stringify({ refresh_token: session?.refreshToken }),
       });
     } catch (error) {
@@ -298,7 +301,10 @@ export function AuthProvider({ children }) {
 
       await fetchWithTimeout(`${API_BASE_URL}/auth/logout`, { 
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          ...(session?.token && { Authorization: `Bearer ${session.token}` }),
+        },
         body: JSON.stringify({ refresh_token: session?.refreshToken }),
       });
     } catch (error) {
