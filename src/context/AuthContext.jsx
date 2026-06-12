@@ -36,14 +36,14 @@ function isJwtExpired(token) {
 
 function readStoredSession() {
   try {
-    const raw = localStorage.getItem(AUTH_STORAGE_KEY);
+    const raw = sessionStorage.getItem(AUTH_STORAGE_KEY);
     if (!raw) {
       return null;
     }
 
     const session = JSON.parse(raw);
     if (isJwtExpired(session?.refreshToken)) {
-      localStorage.removeItem(AUTH_STORAGE_KEY);
+      sessionStorage.removeItem(AUTH_STORAGE_KEY);
       return null;
     }
 
@@ -85,13 +85,13 @@ export function AuthProvider({ children }) {
 
   const persistSession = useCallback((nextSession) => {
     setSession(nextSession);
-    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(nextSession));
+    sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(nextSession));
   }, []);
 
 
   const clearSession = useCallback(() => {
     setSession(null);
-    localStorage.removeItem(AUTH_STORAGE_KEY);
+    sessionStorage.removeItem(AUTH_STORAGE_KEY);
   }, []);
 
 

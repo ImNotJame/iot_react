@@ -5,7 +5,7 @@ const REQUEST_TIMEOUT_MS = 10000;
 
 function getSession() {
   try {
-    const raw = localStorage.getItem("iot-auth");
+    const raw = sessionStorage.getItem("iot-auth");
     return raw ? JSON.parse(raw) : null;
   } catch {
     return null;
@@ -62,7 +62,7 @@ async function refreshAccessToken() {
     refreshToken: data.refresh_token,
     expiresAt: data.expires_at,
   };
-  localStorage.setItem("iot-auth", JSON.stringify(newSession));
+  sessionStorage.setItem("iot-auth", JSON.stringify(newSession));
   return newSession;
 }
 
@@ -164,7 +164,7 @@ class ApiClient {
         });
       }
 
-      localStorage.removeItem("iot-auth");
+      sessionStorage.removeItem("iot-auth");
       window.location.href = "/login";
       throw new Error("Session expired. Please log in again.");
     }
@@ -221,7 +221,7 @@ class ApiClient {
     } catch (error) {
       console.error("Logout request failed:", error);
     } finally {
-      localStorage.removeItem("iot-auth");
+      sessionStorage.removeItem("iot-auth");
       this.clearQueue();
     }
   }

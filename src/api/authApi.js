@@ -17,7 +17,7 @@ export const authApi = {
       expiresAt: data.expires_at,
       username,
     };
-    localStorage.setItem("iot-auth", JSON.stringify(session));
+    sessionStorage.setItem("iot-auth", JSON.stringify(session));
     return session;
   },
 
@@ -29,7 +29,7 @@ export const authApi = {
 
 
   async refresh() {
-    const session = JSON.parse(localStorage.getItem("iot-auth") || "null");
+    const session = JSON.parse(sessionStorage.getItem("iot-auth") || "null");
     if (!session?.refreshToken) {
       throw new Error("No refresh token available");
     }
@@ -50,14 +50,14 @@ export const authApi = {
       refreshToken: data.refresh_token,
       expiresAt: data.expires_at,
     };
-    localStorage.setItem("iot-auth", JSON.stringify(newSession));
+    sessionStorage.setItem("iot-auth", JSON.stringify(newSession));
     return newSession;
   },
 
 
   getSession() {
     try {
-      return JSON.parse(localStorage.getItem("iot-auth") || "null");
+      return JSON.parse(sessionStorage.getItem("iot-auth") || "null");
     } catch {
       return null;
     }
@@ -81,6 +81,6 @@ export const authApi = {
 
 
   clearSession() {
-    localStorage.removeItem("iot-auth");
+    sessionStorage.removeItem("iot-auth");
   },
 };
